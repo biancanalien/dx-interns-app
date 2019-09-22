@@ -1,0 +1,179 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<head>
+    <title>Dextragiários</title>
+</head>
+
+<body onload="loadInitialData()">
+    <div class="content">
+        <div class="register_intern">
+            <h3>Cadastro da pessoa Dextragiária!</h3>
+            <p>Nesse cadastro, você poderá criar o username do Dextragiário e as equipes hipotéticas que ela escolheria.
+            </p>
+            <div class="content_username">
+                <label for="intern_username">Qual será o username do Dextragiário?</label>
+                <input type="text" id="intern_username" name="username" />
+            </div>
+            <div>
+                <p>Quais serão as equipes?</p>
+                <div id="teams_options">
+                </div>
+            </div>
+            <input class="primary_button" type="submit" value="Criar Dextragiário" onclick="saveIntern()">
+        </div>
+        <div class="list_ocument.onloadinterns">
+            <h3>Listagem dos Dextragiários</h3>
+            <p>Nessa listagem você pode observar os Dextragiários cadastrados e suas equipes escolhidas. Você também tem
+                a
+                opção de removê-las.</p>
+            <button onclick="getInterns()">Atualizar</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dextragiário</th>
+                        <th>Equipes escolhidas</th>
+                    </tr>
+                </thead>
+                <tbody id="iterns_list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    const urlBase = "http://localhost:3000";
+
+    const loadInitialData = () => {
+        getTeamsOptions();
+        getInterns();
+    }
+
+    const getInterns = () => {
+        getRequest(urlBase + "/interns")
+            .then(res => res.json())
+            .then(interns => {
+                loadInternsTable(interns);
+            })
+            .catch(e => console.error("Error: ", e));
+    }
+
+    const loadInternsTable = (interns) => {
+        let internListHTML = document.getElementById("iterns_list");
+        internListHTML.innerHTML = null;
+        interns.forEach(intern => {
+            internListHTML.innerHTML += `<tr>`;
+            internListHTML.innerHTML += `<td>${intern.username}</td><td>${intern.teamOptions}</td>`;
+            internListHTML.innerHTML += `</tr>`;
+        });
+    }
+
+    const getTeamsOptions = () => {
+        getRequest(urlBase + "/teams")
+            .then(res => res.json())
+            .then(teams => loadTeamOptions(teams))
+            .catch(e => console.error("Errors: ", e));
+    }
+
+    loadTeamOptions = (teams) => {
+        let teamOptionsListHTML = document.getElementById("teams_options");
+        teams.forEach(team => {
+            teamOptionsListHTML.innerHTML +=
+                `<input type="checkbox" name="${team.teamId}" value="${team.teamId}"> ${team.teamId}`
+        });
+    }
+
+    const saveIntern = () => {
+        console.log("Save intern");
+
+        const username = loadUsernameFromForms();
+        const newIntern = {
+            "username": username,
+            "email": username + "@dextra-sw.com",
+            "name": "nome exemplo",
+            "lastName": "lastName exemplo",
+            "schoolName": "escola exemplo",
+            "teamOptions": JSON.stringify(loadTeamsFromForms())
+        }
+
+        postRequest(urlBase + "/interns", newIntern)
+            .then(res => res.json())
+            .then(intern => {
+                console.log("New intern:", intern);
+                getInterns();
+            })
+            .catch(e => console.error("Error: ", e));
+    }
+
+    const loadUsernameFromForms = () => {
+        return document.getElementById("intern_username").value;
+    }
+
+    const loadTeamsFromForms = () => {
+        const teamsOptions = [];
+        const teamsList = document.getElementById("teams_list").children;
+        for (let i = 0; i < teamsList.length; i++) {
+            const currentTeam = teamsList[i];
+            if (currentTeam.checked) {
+                console.log("checked:", currentTeam.value);
+                teamsOptions.push(currentTeam.value);
+            }
+        }
+        return teamsOptions;
+    }
+
+    const postRequest = (url, data) => {
+        return fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+    const getRequest = (url) => {
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+</script>
+<style>
+    .content {
+        display: flex;
+    }
+
+    .register_intern,
+    .list_interns {
+        width: 50%;
+        height: 100%;
+    }
+
+    .register_intern p {
+        width: 80%;
+    }
+
+    .register_intern .content_username {
+        display: inline-grid;
+    }
+
+    .register_intern .content_username #intern_username {
+        margin-top: 10px;
+    }
+
+    button {
+        margin-top: 30px;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+
+</html>
