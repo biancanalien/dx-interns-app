@@ -1,0 +1,85 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<head>
+    <title>Match</title>
+</head>
+
+<body onload="getMatch()">
+    <table>
+        <thead>
+            <tr>
+                <th>Nível</th>
+                <th>Equipe</th>
+                <th>Dextragiários</th>
+            </tr>
+        </thead>
+        <tbody id="match_list">
+        </tbody>
+    </table>
+</body>
+<script>
+    const urlBase = "http://localhost:3000";
+
+    const getMatch = () => {
+        getRequest(urlBase + "/match")
+            .then(res => res.json())
+            .then(matchList => loadMatchItens(matchList))
+            .catch(e => console.error(e));
+    }
+
+    const getRequest = (url) => {
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+    const loadMatchItens = (matchList) => {
+        let matchTableHTML = document.getElementById("match_list");
+        matchTableHTML.innerHTML = null;
+        matchList.forEach(match => {
+            matchTableHTML.innerHTML += `<tr>`;
+            matchTableHTML.innerHTML += `<td>${loadWeight(match.weight)}</td><td>${match.team}</td><td>${match.intern}</td>`;
+            matchTableHTML.innerHTML += `</tr>`;
+        });
+    }
+
+    const loadWeight = (weight) => {
+        switch (weight) {
+            case 0:
+                return "Super match!";
+            case 1:
+                return "Primeira opção do time";
+            case 1.1:
+                return "Primeira opção do estagiário";
+            case 2:
+                return "Super match em segunda fase";
+            case 2.1:
+                return "Segunda opção do time";
+            case 2.2:
+                return "Segunda opção do estagiário";
+            case 3:
+                return "Super match em terceira fase";
+            case 3.1:
+                return "Terceira opção do time";
+            case 3.2:
+                return "Terceira opção do estagiário";
+            case 4.0:
+                return "Super match em quarta fase";
+            default:
+                return "Não existe combinação";
+        }
+    }
+</script>
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+
+</html>

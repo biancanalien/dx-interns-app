@@ -111,7 +111,8 @@
 
     const loadTeamsFromForms = () => {
         const teamsOptions = [];
-        const teamsList = document.getElementById("teams_list").children;
+        let teamsList = document.getElementById("teams_list");
+        teamsList = teamsList ? teamsList.children : [];
         for (let i = 0; i < teamsList.length; i++) {
             const currentTeam = teamsList[i];
             if (currentTeam.checked) {
