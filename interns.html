@@ -17,8 +17,18 @@
             </div>
             <div>
                 <p>Quais serão as equipes?</p>
-                <div id="teams_options">
-                </div>
+                <select id="select_team_1">
+                    <option value=""></option>
+                </select>
+                <select id="select_team_2">
+                    <option value=""></option>
+                </select>
+                <select id="select_team_3">
+                    <option value=""></option>
+                </select>
+                <select id="select_team_4">
+                    <option value=""></option>
+                </select>
             </div>
             <input class="primary_button" type="submit" value="Criar Dextragiário" onclick="saveIntern()">
         </div>
@@ -76,11 +86,16 @@
     }
 
     loadTeamOptions = (teams) => {
-        let teamOptionsListHTML = document.getElementById("teams_options");
+        let optionTagList;
         teams.forEach(team => {
-            teamOptionsListHTML.innerHTML +=
-                `<input type="checkbox" name="${team.teamId}" value="${team.teamId}"> ${team.teamId}`
+            optionTagList +=
+                `<option value="${team.teamId}">${team.teamId}</option>`
         });
+
+        document.getElementById("select_team_1").innerHTML += optionTagList;
+        document.getElementById("select_team_2").innerHTML += optionTagList;
+        document.getElementById("select_team_3").innerHTML += optionTagList;
+        document.getElementById("select_team_4").innerHTML += optionTagList;
     }
 
     const saveIntern = () => {
@@ -96,7 +111,7 @@
             "teamOptions": JSON.stringify(loadTeamsFromForms())
         }
 
-        postRequest(urlBase + "/interns", newIntern)
+        putRequest(urlBase + "/interns/" + username, newIntern)
             .then(res => res.json())
             .then(intern => {
                 console.log("New intern:", intern);
@@ -111,21 +126,21 @@
 
     const loadTeamsFromForms = () => {
         const teamsOptions = [];
-        let teamsList = document.getElementById("teams_list");
-        teamsList = teamsList ? teamsList.children : [];
-        for (let i = 0; i < teamsList.length; i++) {
-            const currentTeam = teamsList[i];
-            if (currentTeam.checked) {
-                console.log("checked:", currentTeam.value);
-                teamsOptions.push(currentTeam.value);
-            }
-        }
+        teamsOptions.push(getTeamSelectedFromHTMl("select_team_1"));
+        teamsOptions.push(getTeamSelectedFromHTMl("select_team_2"));
+        teamsOptions.push(getTeamSelectedFromHTMl("select_team_3"));
+        teamsOptions.push(getTeamSelectedFromHTMl("select_team_4"));
         return teamsOptions;
     }
 
-    const postRequest = (url, data) => {
+    const getTeamSelectedFromHTMl = (id) => {
+        let selectTeam = document.getElementById(id);
+        return selectTeam.value;
+    }
+
+    const putRequest = (url, data) => {
         return fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'

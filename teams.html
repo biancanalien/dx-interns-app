@@ -16,8 +16,18 @@
             </div>
             <div>
                 <p>Quais serão os Dextragiários escolhidos?</p>
-                <div id="interns_options">
-                </div>
+                <select id="select_intern_1">
+                    <option value=""></option>
+                </select>
+                <select id="select_intern_2">
+                    <option value=""></option>
+                </select>
+                <select id="select_intern_3">
+                    <option value=""></option>
+                </select>
+                <select id="select_intern_4">
+                    <option value=""></option>
+                </select>
             </div>
             <input class="primary_button" type="submit" value="Criar equipe" onclick="saveTeam()">
         </div>
@@ -73,11 +83,16 @@
     }
 
     loadInternsOptions = (interns) => {
-        let internsOptionsListHTML = document.getElementById("interns_options");
+        let optionTagList;
         interns.forEach(intern => {
-            internsOptionsListHTML.innerHTML +=
-                `<input type="checkbox" name="${intern.username}" value="${intern.username}"> ${intern.username}`
+            optionTagList +=
+                `<option value="${intern.username}">${intern.username}</option>`
         });
+
+        document.getElementById("select_intern_1").innerHTML += optionTagList;
+        document.getElementById("select_intern_2").innerHTML += optionTagList;
+        document.getElementById("select_intern_3").innerHTML += optionTagList;
+        document.getElementById("select_intern_4").innerHTML += optionTagList;
     }
 
     const saveTeam = () => {
@@ -93,7 +108,7 @@
             internOptions: JSON.stringify(loadInternsFromForms())
         }
 
-        postRequest(urlBase + "/teams", newTeam)
+        putRequest(urlBase + "/teams/" + teamId, newTeam)
             .then(res => res.json())
             .then(teams => {
                 console.log("New teams:", teams);
@@ -109,19 +124,21 @@
 
     const loadInternsFromForms = () => {
         const internsOptions = [];
-        const internsList = document.getElementById("interns_options").children;
-        for (let i = 0; i < internsList.length; i++) {
-            const currentIntern = internsList[i];
-            if (currentIntern.checked) {
-                internsOptions.push(currentIntern.value);
-            }
-        }
+        internsOptions.push(getInternSelectedFromHTMl("select_intern_1"));
+        internsOptions.push(getInternSelectedFromHTMl("select_intern_2"));
+        internsOptions.push(getInternSelectedFromHTMl("select_intern_3"));
+        internsOptions.push(getInternSelectedFromHTMl("select_intern_4"));
         return internsOptions;
     }
 
-    const postRequest = (url, data) => {
+    const getInternSelectedFromHTMl = (id) => {
+        let selectIntern = document.getElementById(id);
+        return selectIntern.value;
+    }
+
+    const putRequest = (url, data) => {
         return fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
