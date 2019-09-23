@@ -16,7 +16,7 @@ http.createServer((req, res) => {
         res.write(data);
         return res.end();
     });
-}).listen(8080);
+}).listen(process.env.PORT || 5000);
 
 const getCurrentFilePath = (u) => {
     const urlParsed = url.parse(u, true);
