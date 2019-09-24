@@ -51,6 +51,8 @@
 <script>
     const urlBase = "https://mighty-mesa-64277.herokuapp.com";
 
+    // const urlBase = "http://localhost:3000"
+
     const loadInitialData = () => {
         getInternsOptions();
         getTeams();
@@ -104,8 +106,8 @@
             teamId: teamId,
             name: teamId,
             internNumber: 2,
-            technologies: JSON.stringify(["java", "react"]),
-            internOptions: JSON.stringify(loadInternsFromForms())
+            technologies: ["java", "react"],
+            internOptions: loadInternsFromForms()
         }
 
         putRequest(urlBase + "/teams/" + teamId, newTeam)
@@ -128,7 +130,7 @@
         internsOptions.push(getInternSelectedFromHTMl("select_intern_2"));
         internsOptions.push(getInternSelectedFromHTMl("select_intern_3"));
         internsOptions.push(getInternSelectedFromHTMl("select_intern_4"));
-        return internsOptions;
+        return internsOptions.filter(t => t != "");
     }
 
     const getInternSelectedFromHTMl = (id) => {
