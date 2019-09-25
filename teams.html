@@ -113,7 +113,7 @@
             internOptions: loadInternsFromForms()
         }
 
-        putRequest(urlBase + "/teams/" + teamId, newTeam)
+        putRequest(urlBase + "/teams", newTeam)
             .then(res => res.json())
             .then(teams => {
                 console.log("New teams:", teams);
