@@ -6,7 +6,6 @@ http.createServer((req, res) => {
     const filePath = getCurrentFilePath(req.url);
     console.log("Load file path", filePath);
     fs.readFile(filePath, (err, data) => {
-        console.log("data", data);
         if (err) {
             res.writeHead(404, { 'Content-Type': 'text/html' });
             return res.end("404 Not Found");

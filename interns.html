@@ -6,6 +6,12 @@
 </head>
 
 <body onload="loadInitialData()">
+    <nav>
+        <a href="/interns">Dextragiários</a> |
+        <a href="/match">Combinações</a> |
+        <a href="/teams">Equipes</a>
+    </nav>
+
     <div class="content">
         <div class="register_intern">
             <h3>Cadastro da pessoa Dextragiária!</h3>
@@ -53,8 +59,6 @@
 </body>
 <script>
     const urlBase = "https://mighty-mesa-64277.herokuapp.com";
-
-    // const urlBase = "http://localhost:3000"
 
     const loadInitialData = () => {
         getTeamsOptions();
