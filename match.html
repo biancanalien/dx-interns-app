@@ -11,6 +11,7 @@
         <a href="/match">Combinações</a> |
         <a href="/teams">Equipes</a>
     </nav>
+    <h2>Combinações existentes:</h2>
     <table>
         <thead>
             <tr>
@@ -20,6 +21,19 @@
             </tr>
         </thead>
         <tbody id="match_list">
+        </tbody>
+    </table>
+
+    <h2>Equipes e Dextragiários sem combinação:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nível</th>
+                <th>Equipe</th>
+                <th>Dextragiários</th>
+            </tr>
+        </thead>
+        <tbody id="unmatch_list">
         </tbody>
     </table>
 </body>
@@ -44,12 +58,22 @@
 
     const loadMatchItens = (matchList) => {
         let matchTableHTML = document.getElementById("match_list");
+        let unMatchTableHTML = document.getElementById("unmatch_list");
+
         matchTableHTML.innerHTML = null;
+        unMatchTableHTML.innerHTML = null;
+
         matchList.forEach(match => {
-            matchTableHTML.innerHTML += `<tr>`;
-            matchTableHTML.innerHTML += `<td>${loadWeight(match.weight)}</td><td>${match.team}</td><td>${match.intern}</td>`;
-            matchTableHTML.innerHTML += `</tr>`;
+            if (match.weight < 5.0) {
+                matchTableHTML.innerHTML += loadMatchTable(match);
+            } else {
+                unMatchTableHTML.innerHTML += loadMatchTable(match);
+            }
         });
+    }
+
+    const loadMatchTable = (match) => {
+        return `<tr><td>${loadWeight(match.weight)}</td><td>${match.team}</td><td>${match.intern}</td></tr>`;
     }
 
     const loadWeight = (weight) => {
