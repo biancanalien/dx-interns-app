@@ -12,6 +12,8 @@
         <a href="/teams">Equipes</a>
     </nav>
     <h2>Combinações existentes:</h2>
+    <h3>Super match</h3>
+    <p>A pessoa Dextragiária escolheu em primeiro lugar a equipe que escolheu ela.</p>
     <table>
         <thead>
             <tr>
@@ -20,7 +22,79 @@
                 <th>Dextragiários</th>
             </tr>
         </thead>
-        <tbody id="match_list">
+        <tbody id="super_match_list">
+        </tbody>
+    </table>
+
+    <h3>Regra 1</h3>
+    <p><strong>"Primeira opção do time":</strong> primeira opção de Dextragiário do time é a segunda opção de time desse
+        Dextragiário</p>
+    <p><strong>"Primeira opção do estagiário":</strong> primeira opção de time do Dextragiário é a segunda opção de
+        Dextragiário desse time</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nível</th>
+                <th>Equipe</th>
+                <th>Dextragiários</th>
+            </tr>
+        </thead>
+        <tbody id="rule_one_match_list">
+        </tbody>
+    </table>
+
+
+    <h3>Regra 2</h3>
+    <p><strong>"Super match em segunda fase":</strong> A pessoa Dextragiária escolheu em segundo lugar a equipe que
+        escolheu ela.</p>
+    <p><strong>"Segunda opção do time":</strong> Segunda opção de Dextragiário do time é a terceira opção de time desse
+        Dextragiário</p>
+    <p><strong>"Segunda opção do estagiário":</strong> Segunda opção de time do Dextragiário é a terceira opção de
+        Dextragiário desse time</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nível</th>
+                <th>Equipe</th>
+                <th>Dextragiários</th>
+            </tr>
+        </thead>
+        <tbody id="rule_two_match_list">
+        </tbody>
+    </table>
+
+
+    <h3>Regra 3</h3>
+    <p><strong>"Super match em terceira fase":</strong> A pessoa Dextragiária escolheu em terceiro lugar a equipe que
+        escolheu ela.</p>
+    <p><strong>"Terceira opção do time":</strong> Terceira opção de Dextragiário do time é a quarta opção de time desse
+        Dextragiário</p>
+    <p><strong>"Terceira opção do estagiário":</strong> Terceira opção de time do Dextragiário é a quarta opção de
+        Dextragiário desse time</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nível</th>
+                <th>Equipe</th>
+                <th>Dextragiários</th>
+            </tr>
+        </thead>
+        <tbody id="rule_three_match_list">
+        </tbody>
+    </table>
+    
+    <h3>Regra 4</h3>
+    <p><strong>"Super match em quarta fase":</strong> A pessoa Dextragiária escolheu em quarto lugar a equipe que
+        escolheu ela.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nível</th>
+                <th>Equipe</th>
+                <th>Dextragiários</th>
+            </tr>
+        </thead>
+        <tbody id="rule_four_match_list">
         </tbody>
     </table>
 
@@ -57,15 +131,31 @@
     }
 
     const loadMatchItens = (matchList) => {
-        let matchTableHTML = document.getElementById("match_list");
+        let superMatchTableHTML = document.getElementById("super_match_list");
+        let ruleOneMatchTableHTML = document.getElementById("rule_one_match_list");
+        let ruleTwoMatchTableHTML = document.getElementById("rule_two_match_list");
+        let ruleThreeMatchTableHTML = document.getElementById("rule_three_match_list");
+        let ruleFourMatchTableHTML = document.getElementById("rule_four_match_list");
         let unMatchTableHTML = document.getElementById("unmatch_list");
 
-        matchTableHTML.innerHTML = null;
+        superMatchTableHTML.innerHTML = null;
+        ruleOneMatchTableHTML.innerHTML = null;
         unMatchTableHTML.innerHTML = null;
+        ruleTwoMatchTableHTML.innerHTML = null;
+        ruleThreeMatchTableHTML.innerHTML = null;
+        ruleFourMatchTableHTML.innerHTML = null;
 
         matchList.forEach(match => {
-            if (match.weight < 5.0) {
-                matchTableHTML.innerHTML += loadMatchTable(match);
+            if (match.weight == 0) {
+                superMatchTableHTML.innerHTML += loadMatchTable(match);
+            } else if (match.weight < 2) {
+                ruleOneMatchTableHTML.innerHTML += loadMatchTable(match);
+            } else if (match.weight < 3) {
+                ruleTwoMatchTableHTML.innerHTML += loadMatchTable(match); 
+            } else if (match.weight < 4) {
+                ruleThreeMatchTableHTML.innerHTML += loadMatchTable(match);
+            } else if (match.weight < 5) {
+                ruleFourMatchTableHTML.innerHTML += loadMatchTable(match);
             } else {
                 unMatchTableHTML.innerHTML += loadMatchTable(match);
             }
@@ -108,6 +198,7 @@
     th,
     td {
         border: 1px solid black;
+        padding: 5px;
     }
 </style>
 
