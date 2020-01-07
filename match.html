@@ -82,7 +82,7 @@
         <tbody id="rule_three_match_list">
         </tbody>
     </table>
-    
+
     <h3>Regra 4</h3>
     <p><strong>"Super match em quarta fase":</strong> A pessoa Dextragiária escolheu em quarto lugar a equipe que
         escolheu ela.</p>
@@ -115,10 +115,16 @@
     const urlBase = "https://mighty-mesa-64277.herokuapp.com";
 
     const getMatch = () => {
-        getRequest(urlBase + "/match")
-            .then(res => res.json())
-            .then(matchList => loadMatchItens(matchList))
-            .catch(e => console.error(e));
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId());
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+        
+        // getRequest(urlBase + "/match")
+        //     .then(res => res.json())
+        //     .then(matchList => loadMatchItens(matchList))
+        //     .catch(e => console.error(e));
     }
 
     const getRequest = (url) => {
@@ -151,7 +157,7 @@
             } else if (match.weight < 2) {
                 ruleOneMatchTableHTML.innerHTML += loadMatchTable(match);
             } else if (match.weight < 3) {
-                ruleTwoMatchTableHTML.innerHTML += loadMatchTable(match); 
+                ruleTwoMatchTableHTML.innerHTML += loadMatchTable(match);
             } else if (match.weight < 4) {
                 ruleThreeMatchTableHTML.innerHTML += loadMatchTable(match);
             } else if (match.weight < 5) {

@@ -4,7 +4,6 @@ let fs = require('fs');
 
 http.createServer((req, res) => {
     const filePath = getCurrentFilePath(req.url);
-    console.log("Load file path", filePath);
     fs.readFile(filePath, (err, data) => {
         if (err) {
             res.writeHead(404, { 'Content-Type': 'text/html' });
