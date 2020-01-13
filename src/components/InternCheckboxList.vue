@@ -7,10 +7,7 @@
                     v-model="inputs"
                     @change="updateSelectedInterns(inputs)"
                     :value="intern.username"
-                    :disabled="
-                        inputs.length > 3 &&
-                            disableOnlyUnchecked(intern.username)
-                    "
+                    :disabled="inputs.length > 3 && disableOnlyUnchecked(intern.username)"
                 />
                 {{ intern.username }}
             </label>

@@ -1,20 +1,19 @@
 <template>
+    <!-- AppCard -->
     <div class="match-card-component">
+        <!-- MatchAvatars -->
         <div class="match-image">
-            <img
-                class="intern-avatar"
-                src="../assets/avatar_intern.png"
-                alt="intern avatar"
-            />
-            <img
-                class="team-avatar"
-                src="../assets/avatar_team.png"
-                alt="team avatar"
-            />
+            <!-- AppAvatar -->
+            <img class="intern-avatar" src="../assets/avatar_intern.png" alt="intern avatar" />
+            <img class="team-avatar" src="../assets/avatar_team.png" alt="team avatar" />
         </div>
+        <!-- MatchDescription -->
         <div class="match-description">
+            <!-- AppLabelValueText -->
             <div class="match-description-item">
+                <!-- AppLabelText -->
                 <p class="label">DEXTRAESTAG</p>
+                <!-- AppValueText -->
                 <p class="value">{{ match.intern }}</p>
             </div>
             <div class="match-description-item">
@@ -22,10 +21,13 @@
                 <p class="value">{{ match.team }}</p>
             </div>
         </div>
-        <!-- <div class="match-actions">
-            <button class="btn-action">Editar combinação</button>
-            <button class="btn-primary">Aprovar combinação</button>
-        </div> -->
+        <!-- MatchActions -->
+        <!-- <div class="match-actions"> -->
+        <!-- AppLinkButton-->
+        <button class="btn-action">Editar combinação</button>
+        <!-- AppPrimaryButton-->
+        <button class="btn-primary">Aprovar combinação</button>
+        <!-- </div> -->
     </div>
 </template>
 <script>

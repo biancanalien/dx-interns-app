@@ -7,23 +7,16 @@
                 <h3>Criar ou atualizar Equipes</h3>
 
                 <p>
-                    Crie um login para a equipe e os Dextragiários que ela
-                    escolheria.
+                    Crie um login para a equipe e os Dextragiários que ela escolheria.
                 </p>
                 <p>
-                    Para atualizar as opções de Dextragiários de uma equipe que
-                    já existe, é só repetir o login da equipe no campo "Login da
-                    equipe"
+                    Para atualizar as opções de Dextragiários de uma equipe que já existe, é só
+                    repetir o login da equipe no campo "Login da equipe"
                 </p>
 
                 <div class="content_code">
                     <label for="team_code">Login da equipe:</label>
-                    <input
-                        type="text"
-                        id="team_code"
-                        name="teamCode"
-                        v-model="teamCode"
-                    />
+                    <input type="text" id="team_code" name="teamCode" v-model="teamCode" />
                 </div>
 
                 <div class="content_internOptions">
@@ -36,8 +29,8 @@
                 <div>
                     <h3>Listagem das equipes</h3>
                     <p>
-                        Nessa listagem você pode observar as equipes cadastradas
-                        e seus dextragiários escolhidas.
+                        Nessa listagem você pode observar as equipes cadastradas e seus
+                        dextragiários escolhidas.
                     </p>
                     <team-list></team-list>
                 </div>
@@ -46,10 +39,10 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 import TeamList from '@/components/TeamList';
 import InternCheckboxList from '@/components/InternCheckboxList';
 import AppNavigation from '@/components/AppNavigation';
-import { mapState } from 'vuex';
 
 export default {
     name: 'Teams',
