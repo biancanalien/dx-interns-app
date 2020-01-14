@@ -5,27 +5,22 @@
             v-bind:internPhoto="match.intern.photoUrl"
             v-bind:teamPhoto="match.team.photoUrl"
         ></MatchAvatars>
-        <!-- MatchDescription -->
         <MatchDescription v-bind:match="match"></MatchDescription>
-        <!-- MatchActions -->
-        <!-- <div class="match-actions"> -->
-        <!-- AppLinkButton-->
-        <!-- <button class="btn-action">Editar combinação</button> -->
-        <!-- AppPrimaryButton-->
-        <!-- <button class="btn-primary">Aprovar combinação</button> -->
-        <!-- </div> -->
+        <MatchActions></MatchActions>
     </div>
 </template>
 <script>
 import MatchAvatars from '@/components/MatchAvatars';
 import MatchDescription from '@/components/MatchDescription';
+import MatchActions from '@/components/MatchActions';
 
 export default {
     name: 'MatchCard',
     props: ['match'],
     components: {
         MatchAvatars,
-        MatchDescription
+        MatchDescription,
+        MatchActions
     }
 };
 </script>
@@ -45,7 +40,7 @@ export default {
 .match-actions {
     margin-top: 32px;
 }
-.match-actions button {
+/* .match-actions button {
     width: 268px;
     height: 48px;
     font-weight: 600;
@@ -63,5 +58,5 @@ export default {
 .match-actions .btn-action {
     color: #00699a;
     background: #ffffff;
-}
+} */
 </style>
