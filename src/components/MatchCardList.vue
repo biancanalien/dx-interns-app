@@ -6,9 +6,14 @@
     </div>
 </template>
 <script>
+import MatchCard from '@/components/MatchCard';
+
 export default {
     name: 'MatchCardList',
-    props: ['matchList']
+    props: ['matchList'],
+    components: {
+        MatchCard
+    }
 };
 </script>
 <style scoped>

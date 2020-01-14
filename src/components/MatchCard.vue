@@ -1,12 +1,10 @@
 <template>
     <!-- AppCard -->
     <div class="match-card-component">
-        <!-- MatchAvatars -->
-        <div class="match-image">
-            <!-- AppAvatar -->
-            <img class="intern-avatar" src="../assets/avatar_intern.png" alt="intern avatar" />
-            <img class="team-avatar" src="../assets/avatar_team.png" alt="team avatar" />
-        </div>
+        <MatchAvatars
+            v-bind:internPhoto="match.intern.photoUrl"
+            v-bind:teamPhoto="match.team.photoUrl"
+        ></MatchAvatars>
         <!-- MatchDescription -->
         <div class="match-description">
             <!-- AppLabelValueText -->
@@ -14,26 +12,31 @@
                 <!-- AppLabelText -->
                 <p class="label">DEXTRAESTAG</p>
                 <!-- AppValueText -->
-                <p class="value">{{ match.intern }}</p>
+                <p class="value">{{ match.intern.username }}</p>
             </div>
             <div class="match-description-item">
                 <p class="label">EQUIPE</p>
-                <p class="value">{{ match.team }}</p>
+                <p class="value">{{ match.team.name }}</p>
             </div>
         </div>
         <!-- MatchActions -->
         <!-- <div class="match-actions"> -->
         <!-- AppLinkButton-->
-        <button class="btn-action">Editar combinação</button>
+        <!-- <button class="btn-action">Editar combinação</button> -->
         <!-- AppPrimaryButton-->
-        <button class="btn-primary">Aprovar combinação</button>
+        <!-- <button class="btn-primary">Aprovar combinação</button> -->
         <!-- </div> -->
     </div>
 </template>
 <script>
+import MatchAvatars from '@/components/MatchAvatars';
+
 export default {
     name: 'MatchCard',
-    props: ['match']
+    props: ['match'],
+    components: {
+        MatchAvatars
+    }
 };
 </script>
 <style scoped>
@@ -49,7 +52,7 @@ export default {
     padding: 20px;
     width: 270px;
 }
-.match-card-component .match-image {
+/* .match-card-component .match-image {
     width: 100%;
     height: 90px;
     display: flex;
@@ -71,7 +74,7 @@ export default {
 .match-card-component .match-image .team-avatar {
     left: calc(45%);
     background: #961283;
-}
+} */
 .match-card-component .match-description {
     position: relative;
 }
