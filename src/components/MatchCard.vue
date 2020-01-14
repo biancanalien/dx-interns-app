@@ -52,29 +52,6 @@ export default {
     padding: 20px;
     width: 270px;
 }
-/* .match-card-component .match-image {
-    width: 100%;
-    height: 90px;
-    display: flex;
-    position: relative;
-    justify-content: center;
-    margin-bottom: 32px;
-}
-.match-card-component .match-image img {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    border: 4px solid #ffffff;
-    border-radius: 100%;
-}
-.match-card-component .match-image .intern-avatar {
-    left: calc(25%);
-    background: #a2c525;
-}
-.match-card-component .match-image .team-avatar {
-    left: calc(45%);
-    background: #961283;
-} */
 .match-card-component .match-description {
     position: relative;
 }
