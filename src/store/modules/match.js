@@ -8,6 +8,7 @@ const state = {
 
 const mutations = {
     mapMatchLists(state, payload) {
+        console.log('payload', payload);
         payload.forEach(m => {
             if (m.weight == 0) {
                 state.superMatchList.push(m);
@@ -17,6 +18,8 @@ const mutations = {
                 state.otherMatchList.push(m);
             }
         });
+
+        console.log('state', state);
     },
     clearMatchLists(state) {
         state.superMatchList = [];
@@ -29,6 +32,7 @@ const actions = {
     async getAll({ commit }) {
         try {
             let response = await matchAPI.getAll();
+            console.log('response', response);
             commit('clearMatchLists');
             commit('mapMatchLists', response.data);
         } catch (error) {

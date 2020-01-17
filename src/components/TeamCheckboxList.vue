@@ -7,9 +7,7 @@
                     v-model="inputs"
                     @change="updateSelectedTeams(inputs)"
                     :value="team.code"
-                    :disabled="
-                        inputs.length > 3 && disableOnlyUnchecked(team.code)
-                    "
+                    :disabled="inputs.length > 3 && disableOnlyUnchecked(team.code)"
                 />
                 {{ team.code }}
             </label>

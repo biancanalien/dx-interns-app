@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import router from '@/router';
-import { getProfileInfo } from '@/api/auth.api';
+import getProfileInfo from '@/api/auth.api';
 
 const state = {
     currentUser: {

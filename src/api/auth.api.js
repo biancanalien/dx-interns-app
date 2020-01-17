@@ -2,6 +2,6 @@ import httpClient from './httpClient';
 
 const END_POINT = '/auth';
 
-const getProfileInfo = () => httpClient.get(END_POINT + '/me');
+const getProfileInfo = () => httpClient.get(`${END_POINT}/me`);
 
-export { getProfileInfo };
+export default getProfileInfo;
