@@ -1,5 +1,4 @@
 <template>
-    <!-- AppCard -->
     <div class="match-card-component">
         <MatchAvatars
             v-bind:internPhoto="match.intern.photoUrl"
@@ -40,23 +39,4 @@ export default {
 .match-actions {
     margin-top: 32px;
 }
-/* .match-actions button {
-    width: 268px;
-    height: 48px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 20px;
-    text-align: center;
-    border: none;
-    margin-bottom: 8px;
-}
-.match-actions .btn-primary {
-    color: #ffffff;
-    background: #00699a;
-    border-radius: 100px;
-}
-.match-actions .btn-action {
-    color: #00699a;
-    background: #ffffff;
-} */
 </style>
